@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
+
+* {
+    margin: 0 auto;
+  
+}
+
+
+.form-control {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 1em;
+}
+
+.custom-form-style  {
+    margin-top: 5em;
+}
+.margin-top {
+    margin-top: 2em;
+}
+
+.margin-top-4 {
+    margin-top: 4em;
+}
+.high-heel {
+    width: 3.5em;
+     margin-top: 1em;
+}
+
+.margin-left {
+    margin-right: 2em;
+}
+
+
+.field {
+    width: 100%;
+}
+
+.image img {
+    height: 25%;
+  
+}
+
+.client-shoe-img {
+    max-width: 25%;
+}
+
+
+.shoes {
+    width: 30%;
+    height: 30%;
+}
+
+.shoe_img {
+    width: 25%;
+}
+
+.addStock {
+    float: right;
+}
+
+
+.form-style {
+    width: 50%;
+  
+}
+
+
+
+/* Form Style */
+

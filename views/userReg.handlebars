@@ -1,0 +1,132 @@
+<style>
+  .form-elegant .font-small {
+font-size: 0.8rem; }
+
+.form-elegant .z-depth-1a {
+-webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25); }
+
+.form-elegant .z-depth-1-half,
+.form-elegant .btn:hover {
+-webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15); }
+
+
+
+</style>
+
+
+             <!--Logo and Company Name, Slogan-->
+             <div class="container" style="text-align: center;">
+                    <img class="high-heel" src="../public/images/shoes/High-HellLogo.png">
+                    <h1 class="heading-spacing">Shoes On</h1>
+                    <span>Designs</span>
+            
+                </div>
+
+                
+        <div class="container-fluid nav-head">
+                <nav class="navbar navbar-expand-lg">
+                    
+    
+                      <button class="navbar-toggler navbar-light ml-auto" type="button"
+                                    data-toggle="collapse" data-target="#navMenu" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    </nav>
+            
+    
+            <div class="container menu">
+                    <nav class="navbar navbar-expand-lg">
+                            <div class="navbar-collapse collapse justify-content-between align-items-center w-100 link-font"
+                                     id="navMenu">
+                                    <ul class="navbar-nav mx-auto text-center">
+                                            <li class="nav-item active">
+                                                    <a class="nav-link" href="/">Home</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                    <a class="nav-link" href="#about">About</a>
+                                            </li>
+                                           
+                                            <li class="nav-item">
+                                                    <a class="nav-link" href="#Contact">Contact</a>
+                                            </li>   
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/login">Login</a>
+                                        </li> 
+
+                                        
+
+    
+                                    </ul>
+    
+                            </div>
+                    </nav>
+                </div>
+            </div>
+
+
+
+
+<form class="form-style  margin-top" action="/user/register" method="POST">
+
+<section class="form-elegant custom-form-style">
+<!--Form without header-->
+<div class="card">
+
+    <div class="card-body mx-4">
+
+        <!--Header-->
+        <div class="text-center">
+            <h3 class="dark-grey-text mb-5"><strong>Register</strong></h3>
+        </div>
+
+        {{#if errors}}
+        {{#each errors}}
+            <div class="notice-error">{{msg}}</div>
+        {{/each}}
+
+        {{/if}}
+
+       
+
+        <!--Body-->
+        <div class="md-form">
+              <label for="regFullName">Full Name</label>
+              <input type="text" class="form-control" name="name" id="regFullName" placeholder="Full Name">
+        </div>
+
+        <div class="md-form pb-3">
+         <label for="registration">Email address</label>
+        <input type="email" name="email"  class="form-control" id="registration" aria-describedby="emailHelp" placeholder="Enter email">  
+            <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1"> Password?</a></p>
+        </div>
+
+         <div class="md-form">
+              <label for="regPassword">Password</label>
+             <input type="password" name="password" class="form-control" id="regPassword" placeholder="Password">
+        </div>
+
+          <div class="md-form">
+              <label for="regPassword">Confirm Password</label>
+              <input type="password" name="password2" class="form-control" id="regPassword" placeholder="Confirm Password">
+        </div>
+
+        <div class="text-center mb-3">
+            <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Sign in</button>
+        </div>
+       
+
+    </div>
+
+    <!--Footer-->
+    <div class="modal-footer mx-5 pt-3 mb-1">
+        <p class="font-small grey-text d-flex justify-content-end">Already A Member? <a href="/login" class="blue-text ml-1">Log In</a></p>
+    </div>
+   
+
+</div>
+
+</form>
