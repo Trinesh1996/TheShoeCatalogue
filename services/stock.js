@@ -238,7 +238,25 @@ module.exports = function (pool) {
     }
 
     // async function updateShoe(id) {
-        
+        async function updateShoes(brand_id, size_id, color_id, price, monthlyStock, imgURL, id) {
+
+            let BrandID = await pool.query('select id from brands where brand = $1', [brand_id]);
+            let ColorID = await pool.query('select id from shoe_color where color = $1', [color_id]);
+            let SizeID = await pool.query('select id from sizes where size = $1', [size_id]);
+
+            let allShoes = await pool.query(`select * from shoes where brand_id = $1 and size_id = $2
+            and color_id = $3 and price = $4 and monthlystock = $5 and imgURL = $6`, [BrandID.rows[0].id, SizeID.rows[0].id, ColorID.rows[0].id, price, monthlyStock, imgURL]);
+
+            let inStock = monthlyStock;
+
+
+            if (allShoes.rowCount === 0) {
+                await pool.query(`UPDATE shoes SET brand_id = $1, size_id = $2, color_id = $3, price = $4, 
+                monthlystock = $5, imgurl = $6 where id = $7`, [BrandID.rows[0].id, SizeID.rows[0].id, ColorID.rows[0].id, price, monthlyStock, inStock, imgURL, id])
+
+            }
+          
+        }
 
 
 
@@ -256,6 +274,22 @@ module.exports = function (pool) {
             return false;
         }
 
+    }
+
+    async function deleteAll() {
+
+        let allshoes = await pool.query("SELECT * from shoes");
+        let allCartItems = await pool.query("SELECT * from items_cart")
+
+        await pool.query("DELETE from items_cart");
+      
+        await pool.query("DELETE from shoes");
+
+
+        return {
+            allShoes: allshoes.rows,
+            allCartItems: allCartItems.rows
+        }
     }
  
 
@@ -310,8 +344,10 @@ module.exports = function (pool) {
         getAllSizes,
         getAllShoesByName,
         getShoesByShoeID,
-        deleteShoe,       
+        deleteShoe,    
+        deleteAll,   
         returnQualities,
+        updateShoes,
         
         getShoeBySize,
         getShoeByColor,

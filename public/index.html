@@ -119,13 +119,13 @@
                             <div class="card" style="width: 18rem;">
                                     <img class="card-img-top" src="{{imgurl}}" alt="Card image cap">
                                     <div class="card-body">
-                                      <h5 class="card-title">Product ID: {{id}}</h5>
+                                      <span class="card-title">Product ID: {{id}}</span>
                                       <p class="card-text">
                                             <ul style="list-style-type:none">
                                                     <li>{{brand}}</li>
                                                     <li>{{color}}</li>
                                                     <li>{{size}}</li>
-                                                    <li>{{price}}</li>
+                                                    <li>R{{price}}</li>
                                                 </ul>
                                       </p>
                                     </div>
@@ -156,20 +156,31 @@
 
                       <div class="container">
                               <div class="row">
-                                        <div class="col-md-6">
-                                                        <img class="card-img-top margin-top" src="{{imgurl}}" style="width: 70%; margin: 0 auto" alt="Card image cap">     
+                                        <div class="col-md-12">
+                                                        <img class="card-img-top confirm-img margin-top" src="{{imgurl}}" alt="Card image cap">     
         
                                                 </div>
-        
-                                      <div class="col-md-6">
-                                              
-                                                        <ul style="list-style-type:none" class="text-center">
+
+                              </div>
+
+                                                <div class="row">
+                                                        <div class="col-md-12">
+                                                        <ul style="list-style-type:none" class="text-center confirm-deets">
                                                                 <li>{{brand}}</li>
                                                                 <li>{{color}}</li>
                                                                 <li>{{size}}</li>
-                                                                <li>{{price}}</li>
+                                                                <li>R{{price}}</li>
                                           
                                                           </ul>    
+                                                        </div>
+
+                                                        <button class="btn blue-gradient btn-block btn-rounded z-depth-1a addToCartBtn" id="addToCart" onclick="addItemsToCart({{id}})">Add To Cart</button> 
+                                         
+                                                </div>
+        
+                           
+                                              
+                                                     
                                                                                   
                                                           
                                                     
@@ -177,10 +188,8 @@
                                        
                                       </div>
 
-                                      <div class="modal-footer">
                               
-                                                <button class="btn blue-gradient btn-block btn-rounded z-depth-1a addToCartBtn" id="addToCart" onclick="addItemsToCart({{id}})">Add To Cart</button> 
-                                                </div>
+                                               
                                                 {{/each}}   
                               </div>
                            
@@ -200,9 +209,7 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="cartModal">My Cart</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                         
                         </div>
                         <div class="modal-body">
                                 <table class="table">
@@ -225,7 +232,7 @@
                                             <td>{{brand}}</td>
                                             <td>{{color}}</td>
                                             <td>{{size}}</td>
-                                            <td>{{price}}</td>
+                                            <td>R{{price}}</td>
                                             <td>{{qty}}</td>
                                           </tr>
                                           {{/each}}

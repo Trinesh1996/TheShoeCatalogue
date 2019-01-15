@@ -201,26 +201,39 @@ describe("Tests for Cart and Checkout", async function () {
             { id: 1, shoe_id: 1, qty: 4, price: 300}
            
             
-        ]);
+        ])
     })
 
 
-    describe("Tests for User Login and Registration Validation", function () {
-        it("Should add a customer", async function () {
-            await user.createCustomer("Trinesh Chetty", "trinesh@gmail.com", "1234567")
+        it("SHOULD UPDATE SHOES", async function () {
+            await stock.addShoeItem('Jordan', 8, 'Black', 300, 10, '../images/pumaBrown');
 
-            assert.deepEqual(await user.getCustomer(), [{ id: 1,
-                fullname: 'Trinesh Chetty',
-                email: 'trinesh@gmail.com',
-                password: "$2a$10$wpja1SR5qu88Ig2rJkxrG.u2iWHAhh5/79m4D.PTaBybL1rD5Ofk6"
-            }])
+            await stock.updateShoes("Nike", 10, "Grey", 500, 9, './//adfa', 1)
+
+ 
+
+            assert.deepEqual(await stock.getAllShoes(), [])
+
         })
 
-        it("should login a customer", async function () {
-            await user.login("trinesh@gmail.com", "1234567");
+
+
+    // describe("Tests for User Login and Registration Validation", function () {
+    //     it("Should add a customer", async function () {
+    //         await user.createCustomer("Trinesh Chetty", "trinesh@gmail.com", "1234567")
+
+    //         assert.deepEqual(await user.getCustomer(), [{ id: 1,
+    //             fullname: 'Trinesh Chetty',
+    //             email: 'trinesh@gmail.com',
+    //             password: "$2a$10$wpja1SR5qu88Ig2rJkxrG.u2iWHAhh5/79m4D.PTaBybL1rD5Ofk6"
+    //         }])
+    //     })
+
+    //     it("should login a customer", async function () {
+    //         await user.login("trinesh@gmail.com", "1234567");
             
-        })
-    })
+    //     })
+    // })
 
     after(function () {
         pool.end();

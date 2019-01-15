@@ -71,7 +71,7 @@ const callUserRoutes = validationRoutes(UserServices)
 // middle ware use
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static('public'));
+
 app.use(cors());
 
 app.set("view engine", "handlebars");
@@ -204,6 +204,49 @@ app.get('/api/stock/filter/brands/:brand/sizes/:size', callShoeStockAPI.filterBy
 app.get('/api/stock/filter/colors/:color/sizes/:size', callShoeStockAPI.filterByColorAndSize)
 app.get('/api/stock/filter/brands/:brand/colors/:color/sizes/:size', callShoeStockAPI.filterByBrandAndColorAndSize)
 
+app.get('/delete/stock', async function (req, res) {
+  await stockServices.deleteAll()
+  res.redirect('/admin')
+});
+
+
+
+app.get('/delete/stock/:id', async function (req, res) {
+  let id = req.params.id;
+  await stockServices.deleteShoe(id);
+
+  res.redirect('/admin')
+
+
+})
+
+
+
+app.post('/update/shoes/:id', async function (req, res) {
+ 
+
+  await stockServices.updateShoes({
+    id: req.params.id,
+    brand: req.body.brand_id,
+    size: req.body.size_id,
+    color: req.body.color_id,
+    price: Number(req.body.priceUpdate),
+    monthlystock: Number(req.body.qtyUpdate),
+    imgurl: req.body.imgurlUpdate
+
+  })
+  
+
+  req.flash('info', 'Shoes Updated')
+  res.redirect('/admin')
+
+
+
+
+
+
+})
+
 
 
 
@@ -221,6 +264,9 @@ app.get('/api/qualities/brand', callShoeStockAPI.getBrands);
 app.get('/api/qualities/color', callShoeStockAPI.getColors);
 app.get('/api/qualities/size', callShoeStockAPI.getSizes);
 app.get('/api/qualities/allQualities', callShoeStockAPI.shoeQualities);
+
+
+
 
 
 

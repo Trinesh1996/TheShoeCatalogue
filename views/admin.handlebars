@@ -78,7 +78,37 @@
                 <button class="btn btn-info">Add Stock
                     <i class="fa fa-send ml-2"></i>
                 </button>
+
+                 <a href="/delete/stock" class="btn btn-info crud" style="color: white;">Delete All Shoes</a>
             </div>
+
+
+            <div class="container-fluid text-center margin-top-6">
+                    <div class="row">
+                            <div class="col-12">
+                                    <h2>IMAGE URLS TO TEST</h2>
+                                    <ul style="list-style: none;">
+                                            <li><span class="urls">Brown Puma: </span>images/shoes/resizedShoes/BrownPuma.jpg</li>
+                                            <li><span class="urls">Black Adiddas: </span>images/shoes/resizedShoes/BlackAdiddas.jpg</li>
+                                            <li><span class="urls">BlackNike: </span>images/shoes/resizedShoes/BlackNike.jpg</li>
+                                            <li><span class="urls">BlackNike2: </span>images/shoes/resizedShoes/BlackNike2.jpg</li>
+                                            <li><span class="urls">Blue Jordan: </span>images/shoes/resizedShoes/BlueJordan.jpg</li>                                        
+                                           <li><span class="urls">Brown Puma2: </span>images/shoes/resizedShoes/BrownPuma2.jpg</li> 
+                                           <li><span class="urls">Gold Nike: </span>images/shoes/resizedShoes/GoldNike.jpg</li> 
+                                           <li><span class="urls">White Adiddas: </span>images/shoes/resizedShoes/WhiteAdiddas.jpg</li> 
+                                           <li><span class="urls">White Nike: </span>images/shoes/resizedShoes/WhiteNike.jpg</li> 
+                                           <li><span class="urls">White Nike2: </span>images/shoes/resizedShoes/WhiteNike2.jpg</li> 
+                                    </ul>
+                            </div>
+                    </div>
+            </div>
+
+            
+
+
+
+
+
    
 
             
@@ -87,6 +117,7 @@
 
 
 </form>
+
 
 
         <div class="col-6">
@@ -122,7 +153,11 @@
         <td>{{monthlystock}}</td>
         <td>{{price}}</td>
         <td><img src="{{imgurl}}" class="img-fluid shoe_img"></td>
+        <td><a href="/update/stock/{{id}}" class="btn btn-info" data-toggle="modal" data-target="#updateShoeModal">Update Shoe</a></td>
+        <td><a href="/delete/stock/{{id}}" class="btn btn-info">Delete Shoe</a></td>
+       
       </tr>
+          
            {{/each}}
    
     </tbody>
@@ -144,14 +179,42 @@
 
             
             
-            
 
-            
+<!-- Modal -->
+<div class="modal fade" id="updateShoeModal" tabindex="-1" role="dialog" aria-labelledby="updateModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModal">Modal title</h5>
        
+      </div>
+      <div class="modal-body">
+           
+              
+        <form action="/update/shoes/{{id}}" method="POST">
+
+     
   
 
-<script>
-    function deleteShoe(id) {
+
+         <input type="text" name="brand_id" value="{{data.brand_id}}" id="exampleForm2" class="form-control"  placeholder="Brand">
+         <input type="text" name="color_id" value="{{color}}" id="exampleForm2" class="form-control"  placeholder="Color">
+         <input type="text" name="size_id" value="{{size}}" min="0" max="20" id="exampleForm2" class="form-control"  placeholder="size">
+         <input type="number" name="priceUpdate" value="{{price}}" step="1" min="0"  id="exampleForm2" class="form-control"  placeholder="price">
+         <input type="number"  name="qtyUpdate" value="{{monthlystock}}" step="1" min="0"  id="exampleForm2" class="form-control"  placeholder="qty">
+        <input type="text"  name="imageURLUpdate" value="{{imgurl}}" id="exampleForm2" class="form-control"  placeholder="url">
+
+        
+        
+      <button type="submit" class="btn btn-primary">Update</button>
+
+
+   </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
        
-    }
-</script>
+      </div>
+    </div>
+  </div>
+</div>
