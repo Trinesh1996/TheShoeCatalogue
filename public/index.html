@@ -7,6 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.js'></script>
+
+
     <link href="css/styles.css" rel="stylesheet">
 
 
@@ -109,8 +112,19 @@
                     </nav>
                 </div>
             </div>
+
+     
+
+
+            
+
+
+
     <!--TEMPLATE TO RENDER ALL AVAILABLE SHOES ON HOME SCREEN-->
         <script type='text/x-handlebars-template' style="text-align:center;" class="renderAllShoes">
+                
+
+
             <div class="container" style="margin-top: 4em;">
                 <div class="row">
     
@@ -122,10 +136,12 @@
                                       <span class="card-title">Product ID: {{id}}</span>
                                       <p class="card-text">
                                             <ul style="list-style-type:none">
-                                                    <li>{{brand}}</li>
-                                                    <li>{{color}}</li>
-                                                    <li>{{size}}</li>
-                                                    <li>R{{price}}</li>
+                                                    <li><span>Brand Name: </span>{{brand}}</li>
+                                                    <li><span>Color: </span>{{color}}</li>
+                                                    <li><span>Size: </span>{{size}}</li>
+                                                    <li><span>Price: </span>R{{price}}</li>
+                                                    <li><span>inStock: </span>{{monthlystock}}</li>
+                                                    
                                                 </ul>
                                       </p>
                                     </div>
@@ -141,10 +157,11 @@
             </div>
         </script>
 
-
+   
     
          <!--TEMPLATE RENDERS SELECTED SHOE DATA TO ADD TO CART-->
-         <script type='text/x-handlebars-template' class="confirmBuy">
+         <script type='text/x-handlebars-template' id="tpl" class="confirmBuy">
+
     
             <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content ">
@@ -152,52 +169,61 @@
                         <h5 class="modal-title" id="confirmOrderModal">Confirm Order</h5>
                       
                       </div>
+
+            
+                  
+
                       {{#each shoeData}}
 
                       <div class="container">
                               <div class="row">
-                                        <div class="col-md-12">
-                                                        <img class="card-img-top confirm-img margin-top" src="{{imgurl}}" alt="Card image cap">     
-        
-                                                </div>
+                                      <div class="col-md-12">
+                                              <img class="card-img-top confirm-img margin-top" src="{{imgurl}}" alt="Card image cap">     
+                                        </div>
 
                               </div>
 
                                                 <div class="row">
                                                         <div class="col-md-12">
                                                         <ul style="list-style-type:none" class="text-center confirm-deets">
-                                                                <li>{{brand}}</li>
-                                                                <li>{{color}}</li>
-                                                                <li>{{size}}</li>
-                                                                <li>R{{price}}</li>
+                                                                <li><span>Brand Name: </span>{{brand}}</li>
+                                                                <li><span>Color: </span>{{color}}</li>
+                                                                <li><span>Size: </span>{{size}}</li>
+                                                                <li><span>Price: </span>R{{price}}</li>
+                                                                <li><span>inStock: </span>{{monthlystock}}</li>
                                           
                                                           </ul>    
                                                         </div>
 
-                                                        <button class="btn blue-gradient btn-block btn-rounded z-depth-1a addToCartBtn" id="addToCart" onclick="addItemsToCart({{id}})">Add To Cart</button> 
-                                         
+                                                        <button name="increment-count" class="btn blue-gradient btn-block btn-rounded z-depth-1a addToCartBtn " id="addToCart" onclick="addItemsToCart({{id}})">Add To Cart</button> 
+                                          
                                                 </div>
         
                            
                                               
                                                      
+                  
                                                                                   
                                                           
                                                     
                                                 </div>
-                                       
-                                      </div>
+                                                {{/each}}   
+                                 
 
                               
                                                
-                                                {{/each}}   
+                                               
                               </div>
                            
                           </div>
-                        </div>
+                     
                 </script>  
                
 
+                <script id="tpl" type="text/x-handlebars-template">
+                        <button name="increment-count">Increase</button>
+                        <p>Count: {{count}}</p>
+                     </script>
      <!--TEMPLATE RENDERS SELECTED SHOE DATA TO ADD TO CART-->
     <script type='text/x-handlebars-template' style="text-align:center;" class="AllCartItems">
 
@@ -212,7 +238,7 @@
                          
                         </div>
                         <div class="modal-body">
-                                <table class="table">
+                                <table width="1000" class="table">
                                         <thead class="thead-dark">
                                           <tr>
                                            
@@ -222,6 +248,7 @@
                                             <th scope="col">Size</th>
                                             <th scope="col">Price</th>
                                             <th scope="col">Quantity</th>
+                                            <th scope="col">TotalPrice</th>
                                           </tr>
                                         </thead>
                                         <tbody>
@@ -234,6 +261,7 @@
                                             <td>{{size}}</td>
                                             <td>R{{price}}</td>
                                             <td>{{qty}}</td>
+                                            <td>{{totalprice}}</td>
                                           </tr>
                                           {{/each}}
                                         
@@ -270,7 +298,7 @@
     <div class="displayTemplate"></div>
 
     <!-- Confirm Order Modal -->
-    <div class="modal fade" id="confirmOrder" tabindex="-1" role="dialog" aria-labelledby="confirmOrderModal" aria-hidden="true"></div>
+    <div class="modal fade confirmOrder" id="confirmOrder" tabindex="-1" role="dialog" aria-labelledby="confirmOrderModal" aria-hidden="true"></div>
   
     <!--Cart Modal-->
     <div class="ui modal all_cartItems"></div>
@@ -278,7 +306,7 @@
     <div class="modal fade" id="cart_modal" tabindex="-1" role="dialog" aria-labelledby="cartModal" aria-hidden="true"></div>
 
 
-
+   
     
 
     
@@ -290,7 +318,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
-
+<script src="reactiveHandlebars/reactive-handlebars.min.js"></script>
 <script src="js/shoe-axios.js"></script>
 <script src="js/shoeCatalogueDom.js"></script>
 

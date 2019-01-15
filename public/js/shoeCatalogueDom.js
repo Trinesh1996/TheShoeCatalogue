@@ -1,4 +1,21 @@
-    // Filter Selectors
+let counter = new ReactiveHbs({
+    container: '#confirmOrder',
+    template: '#tpl',
+    data: {
+      count: 0
+    }
+ 
+});
+
+counter.events({
+    'click [name="increment-count"]'(e, elm, tpl) {
+        tpl.set( 'count', tpl.get('count') + 1 );
+    }
+});
+
+counter.render();
+  
+  // Filter Selectors
     let filterBrand = document.querySelector(".ui.brand");   
    
    // add shoe selectors
@@ -55,7 +72,10 @@
     let filterBtn = document.querySelector(".filterBtn")
 
     let shoeAPI = shoesOnCatalogue();
-  
+
+
+
+
 
 
 
@@ -199,6 +219,9 @@ function confirmShoePurchase(id){
           $("#confirmOrder").modal('show');
   });
     }
+
+   
+  
 }
 
 function addItemsToCart(id) { 
@@ -206,12 +229,22 @@ function addItemsToCart(id) {
         shoeAPI.addItemsToCart(id)
         .then(results => {
             if (results.data.status == 'success: Item has been added to cart') {
-                location.reload()
-               
+                shoeAPI.updateShoesQty(id)
+                .then(res => {
+                    if (res.data.status === "success") {
+                        console.log("SHOE QTY UPDATED")
+                    }
+                })
+                location.reload();
+           
+
+            
                
             }
-        })
+        })      
+ 
     }
+
 }
 
 function deleteShoe(id) {

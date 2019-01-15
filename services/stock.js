@@ -226,7 +226,8 @@ module.exports = function (pool) {
         
         let cartItemValue = cart_itemQTY.rows[0].qty;        
         let shoeQtyValue = shoeQty.rows[0].monthlystock;
-    
+
+        cartItemValue = 1    
         let inStock = shoeQtyValue - cartItemValue;
 
         if (cartItemValue > 0) {
@@ -235,6 +236,8 @@ module.exports = function (pool) {
         else {
             return false
         }
+
+      
     }
 
     // async function updateShoe(id) {

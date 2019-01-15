@@ -67,6 +67,19 @@ function shoesOnCatalogue() {
 
 
 
+    function updateShoesQty(id) {
+        try {
+            const response = axios.get('/api/stock/update/' + id)
+            return response
+        }
+      
+        catch (err) {
+            console.log(err)
+            alert(err)
+        }
+
+    }
+
     function filterStockByBrand(brand) {
         try {
             const response = axios.get('/api/routes/shoesAPI/brand/:brand' + brand);
@@ -160,7 +173,8 @@ function shoesOnCatalogue() {
         filterStockByBrandAndSize,
         filterStockByColorAndSize,
         filterStockByBrandAndColorAndSize,
-        filterStockByBrandAndColor
+        filterStockByBrandAndColor,
+        updateShoesQty
    
     }
 }

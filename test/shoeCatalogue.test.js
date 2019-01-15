@@ -198,7 +198,7 @@ describe("Tests for Cart and Checkout", async function () {
         let getData = await cart.getAllCartData();         
 
         assert.deepEqual(await cart.getAllCartData(), [
-            { id: 1, shoe_id: 1, qty: 4, price: 300}
+            { id: 1, shoe_id: 1, qty: 4, price: 300, totalprice: 1200}
            
             
         ])
@@ -207,7 +207,6 @@ describe("Tests for Cart and Checkout", async function () {
 
         it("SHOULD UPDATE SHOES", async function () {
             await stock.addShoeItem('Jordan', 8, 'Black', 300, 10, '../images/pumaBrown');
-
             await stock.updateShoes("Nike", 10, "Grey", 500, 9, './//adfa', 1)
 
  

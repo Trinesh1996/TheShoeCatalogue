@@ -53,7 +53,8 @@ create table items_cart (
     id serial not null,
     shoe_id int not null,
     qty int not null,
-    price int not null,     
+    price int not null,    
+    totalPrice int not null, 
     FOREIGN key (shoe_id) REFERENCES shoes(id)
 
 );

@@ -12,16 +12,21 @@ module.exports = function (pool) {
             return false;
         }
 
-        let qty = await pool.query("SELECT qty from items_cart where shoe_id = $1", [shoe_item])
+        let ItemsQty = await pool.query("SELECT qty from items_cart where shoe_id = $1", [shoe_item])
+        
 
         let sellPrice = cost.rows[0].price;
+
+       
          
 
         if (cartItems.rowCount === 0) {
-            await pool.query('insert into items_cart (shoe_id, qty, price) values ($1,$2,$3)', [item.rows[0].id, 1, cost.rows[0].price])
+            let totalprice = 0;
+            await pool.query('insert into items_cart (shoe_id, qty, price, totalprice) values ($1,$2,$3, $4)', [item.rows[0].id, 1, cost.rows[0].price, totalprice])
         }
         else {
             await pool.query('update items_cart set qty = qty + 1 where shoe_id = $1', [shoe_item])
+            await pool.query('update items_cart set totalprice = qty * price where shoe_id = $1', [shoe_item])
           
 
         }
@@ -67,7 +72,7 @@ module.exports = function (pool) {
     }
 
     async function getCartData() {
-        let result = await pool.query(`select shoes.id, items_cart.shoe_id, brand, color, size, items_cart.price, items_cart.qty
+        let result = await pool.query(`select shoes.id, items_cart.shoe_id, brand, color, size, items_cart.price, items_cart.qty, items_cart.totalprice
         from shoes
         join items_cart
         on shoes.id = items_cart.shoe_id

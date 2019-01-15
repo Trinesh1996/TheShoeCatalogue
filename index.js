@@ -2,6 +2,7 @@
 const express = require("express"),
     bodyParser = require("body-parser"),
     exphbs = require('express-handlebars'),
+    ReactiveHbs = require('reactive-handlebars'),
     cors = require('cors'), 
     pg = require("pg"),
     Pool = pg.Pool,
@@ -204,6 +205,8 @@ app.get('/api/stock/filter/brands/:brand/sizes/:size', callShoeStockAPI.filterBy
 app.get('/api/stock/filter/colors/:color/sizes/:size', callShoeStockAPI.filterByColorAndSize)
 app.get('/api/stock/filter/brands/:brand/colors/:color/sizes/:size', callShoeStockAPI.filterByBrandAndColorAndSize)
 
+app.get('/api/stock/update/:id', callShoeStockAPI.updateQTY)
+
 app.get('/delete/stock', async function (req, res) {
   await stockServices.deleteAll()
   res.redirect('/admin')
@@ -239,11 +242,6 @@ app.post('/update/shoes/:id', async function (req, res) {
 
   req.flash('info', 'Shoes Updated')
   res.redirect('/admin')
-
-
-
-
-
 
 })
 

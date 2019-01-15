@@ -17,6 +17,22 @@ module.exports = function (stockServices) {
         }
     }
 
+    async function updateQTY(req, res, next) {
+        try {
+            let id = req.params.id;
+            await stockServices.updateShoeQty(id)
+
+            res.json ( {
+                status: 'success'
+            })
+        }
+        catch (err) {
+            next(err) 
+                console.log(err)
+            
+        }
+    }
+
     async function shoeQualities(req, res, next) {
         try {
             let qualities = await stockServices.returnQualities()
@@ -281,6 +297,7 @@ module.exports = function (stockServices) {
         getShoesID,
         deleteShoeByID,
         showSelectedShoe,
+        updateQTY,
 
         filterByBrandAndColor,
         filterByBrandAndSize,
